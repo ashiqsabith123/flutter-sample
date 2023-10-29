@@ -60,9 +60,10 @@ class Screen extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
-                final _number = _inpController.text;
-                getData(number: _number);
+              onPressed: () async {
+                final number = _inpController.text;
+                final data = await getData(number: number);
+                print(data.text);
               },
               icon: Icon(Icons.wifi_protected_setup_outlined),
               color: Colors.red,

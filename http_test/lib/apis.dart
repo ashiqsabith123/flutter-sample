@@ -1,7 +1,12 @@
-import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-Future<void> getData({required String number}) async {
-  final _response =
+import 'package:http/http.dart' as http;
+import 'package:http_test/model_class/number_resp.dart';
+
+Future<NumberResp> getData({required String number}) async {
+  final response =
       await http.get(Uri.parse('http://numbersapi.com/$number?json'));
-  print(_response.body);
+  final bodyAsJson = jsonDecode(response.body) as Map<String, dynamic>;
+  final data = NumberResp.fromJson(bodyAsJson);
+  return data;
 }
