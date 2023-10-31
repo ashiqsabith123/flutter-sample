@@ -37,10 +37,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Screen extends StatelessWidget {
+class Screen extends StatefulWidget {
   Screen({super.key});
 
+  @override
+  State<Screen> createState() => _ScreenState();
+}
+
+class _ScreenState extends State<Screen> {
   final _inpController = TextEditingController();
+
+  String _resultText = 'Message displays here';
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +70,15 @@ class Screen extends StatelessWidget {
               onPressed: () async {
                 final number = _inpController.text;
                 final data = await getData(number: number);
-                print(data.text);
+                setState(() {
+                  _resultText = data.text ?? 'No text found';
+                });
               },
               icon: Icon(Icons.wifi_protected_setup_outlined),
               color: Colors.red,
               iconSize: 40,
             ),
-            Text('Hello'),
+            Text(_resultText),
           ],
         ),
       )),
